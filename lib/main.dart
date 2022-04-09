@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'features/chat_page.dart/presentation/pages/chat_page.dart';
+import 'features/chat/presentation/pages/chat_page.dart';
 import 'features/dashboard/presentation/pages/dashboard_page.dart';
 
 void main() {
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ChatPage(chatId: "sds"),
+      home: ChatPage(chatId: "restaurant"),
     );
   }
 }

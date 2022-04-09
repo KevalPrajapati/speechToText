@@ -19,12 +19,14 @@ class _$LiveMessageStateTearOff {
   const _$LiveMessageStateTearOff();
 
   _LiveMessageState call(
-      {required Map<String, List<String>> messages,
+      {required Map<String, List<Message>> messages,
       required Map<String, bool> isFailedMap,
       required Option<File> recordingFile,
       required bool isRecording,
       required String currentChatId,
       required Option<String> speech,
+      required String botQuestion,
+      required String expectedText,
       required bool isSttInitialized}) {
     return _LiveMessageState(
       messages: messages,
@@ -33,6 +35,8 @@ class _$LiveMessageStateTearOff {
       isRecording: isRecording,
       currentChatId: currentChatId,
       speech: speech,
+      botQuestion: botQuestion,
+      expectedText: expectedText,
       isSttInitialized: isSttInitialized,
     );
   }
@@ -43,12 +47,14 @@ const $LiveMessageState = _$LiveMessageStateTearOff();
 
 /// @nodoc
 mixin _$LiveMessageState {
-  Map<String, List<String>> get messages => throw _privateConstructorUsedError;
+  Map<String, List<Message>> get messages => throw _privateConstructorUsedError;
   Map<String, bool> get isFailedMap => throw _privateConstructorUsedError;
   Option<File> get recordingFile => throw _privateConstructorUsedError;
   bool get isRecording => throw _privateConstructorUsedError;
   String get currentChatId => throw _privateConstructorUsedError;
   Option<String> get speech => throw _privateConstructorUsedError;
+  String get botQuestion => throw _privateConstructorUsedError;
+  String get expectedText => throw _privateConstructorUsedError;
   bool get isSttInitialized => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -62,12 +68,14 @@ abstract class $LiveMessageStateCopyWith<$Res> {
           LiveMessageState value, $Res Function(LiveMessageState) then) =
       _$LiveMessageStateCopyWithImpl<$Res>;
   $Res call(
-      {Map<String, List<String>> messages,
+      {Map<String, List<Message>> messages,
       Map<String, bool> isFailedMap,
       Option<File> recordingFile,
       bool isRecording,
       String currentChatId,
       Option<String> speech,
+      String botQuestion,
+      String expectedText,
       bool isSttInitialized});
 }
 
@@ -88,13 +96,15 @@ class _$LiveMessageStateCopyWithImpl<$Res>
     Object? isRecording = freezed,
     Object? currentChatId = freezed,
     Object? speech = freezed,
+    Object? botQuestion = freezed,
+    Object? expectedText = freezed,
     Object? isSttInitialized = freezed,
   }) {
     return _then(_value.copyWith(
       messages: messages == freezed
           ? _value.messages
           : messages // ignore: cast_nullable_to_non_nullable
-              as Map<String, List<String>>,
+              as Map<String, List<Message>>,
       isFailedMap: isFailedMap == freezed
           ? _value.isFailedMap
           : isFailedMap // ignore: cast_nullable_to_non_nullable
@@ -115,6 +125,14 @@ class _$LiveMessageStateCopyWithImpl<$Res>
           ? _value.speech
           : speech // ignore: cast_nullable_to_non_nullable
               as Option<String>,
+      botQuestion: botQuestion == freezed
+          ? _value.botQuestion
+          : botQuestion // ignore: cast_nullable_to_non_nullable
+              as String,
+      expectedText: expectedText == freezed
+          ? _value.expectedText
+          : expectedText // ignore: cast_nullable_to_non_nullable
+              as String,
       isSttInitialized: isSttInitialized == freezed
           ? _value.isSttInitialized
           : isSttInitialized // ignore: cast_nullable_to_non_nullable
@@ -131,12 +149,14 @@ abstract class _$LiveMessageStateCopyWith<$Res>
       __$LiveMessageStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {Map<String, List<String>> messages,
+      {Map<String, List<Message>> messages,
       Map<String, bool> isFailedMap,
       Option<File> recordingFile,
       bool isRecording,
       String currentChatId,
       Option<String> speech,
+      String botQuestion,
+      String expectedText,
       bool isSttInitialized});
 }
 
@@ -159,13 +179,15 @@ class __$LiveMessageStateCopyWithImpl<$Res>
     Object? isRecording = freezed,
     Object? currentChatId = freezed,
     Object? speech = freezed,
+    Object? botQuestion = freezed,
+    Object? expectedText = freezed,
     Object? isSttInitialized = freezed,
   }) {
     return _then(_LiveMessageState(
       messages: messages == freezed
           ? _value.messages
           : messages // ignore: cast_nullable_to_non_nullable
-              as Map<String, List<String>>,
+              as Map<String, List<Message>>,
       isFailedMap: isFailedMap == freezed
           ? _value.isFailedMap
           : isFailedMap // ignore: cast_nullable_to_non_nullable
@@ -186,6 +208,14 @@ class __$LiveMessageStateCopyWithImpl<$Res>
           ? _value.speech
           : speech // ignore: cast_nullable_to_non_nullable
               as Option<String>,
+      botQuestion: botQuestion == freezed
+          ? _value.botQuestion
+          : botQuestion // ignore: cast_nullable_to_non_nullable
+              as String,
+      expectedText: expectedText == freezed
+          ? _value.expectedText
+          : expectedText // ignore: cast_nullable_to_non_nullable
+              as String,
       isSttInitialized: isSttInitialized == freezed
           ? _value.isSttInitialized
           : isSttInitialized // ignore: cast_nullable_to_non_nullable
@@ -204,10 +234,12 @@ class _$_LiveMessageState implements _LiveMessageState {
       required this.isRecording,
       required this.currentChatId,
       required this.speech,
+      required this.botQuestion,
+      required this.expectedText,
       required this.isSttInitialized});
 
   @override
-  final Map<String, List<String>> messages;
+  final Map<String, List<Message>> messages;
   @override
   final Map<String, bool> isFailedMap;
   @override
@@ -219,11 +251,15 @@ class _$_LiveMessageState implements _LiveMessageState {
   @override
   final Option<String> speech;
   @override
+  final String botQuestion;
+  @override
+  final String expectedText;
+  @override
   final bool isSttInitialized;
 
   @override
   String toString() {
-    return 'LiveMessageState(messages: $messages, isFailedMap: $isFailedMap, recordingFile: $recordingFile, isRecording: $isRecording, currentChatId: $currentChatId, speech: $speech, isSttInitialized: $isSttInitialized)';
+    return 'LiveMessageState(messages: $messages, isFailedMap: $isFailedMap, recordingFile: $recordingFile, isRecording: $isRecording, currentChatId: $currentChatId, speech: $speech, botQuestion: $botQuestion, expectedText: $expectedText, isSttInitialized: $isSttInitialized)';
   }
 
   @override
@@ -242,6 +278,10 @@ class _$_LiveMessageState implements _LiveMessageState {
                 .equals(other.currentChatId, currentChatId) &&
             const DeepCollectionEquality().equals(other.speech, speech) &&
             const DeepCollectionEquality()
+                .equals(other.botQuestion, botQuestion) &&
+            const DeepCollectionEquality()
+                .equals(other.expectedText, expectedText) &&
+            const DeepCollectionEquality()
                 .equals(other.isSttInitialized, isSttInitialized));
   }
 
@@ -254,6 +294,8 @@ class _$_LiveMessageState implements _LiveMessageState {
       const DeepCollectionEquality().hash(isRecording),
       const DeepCollectionEquality().hash(currentChatId),
       const DeepCollectionEquality().hash(speech),
+      const DeepCollectionEquality().hash(botQuestion),
+      const DeepCollectionEquality().hash(expectedText),
       const DeepCollectionEquality().hash(isSttInitialized));
 
   @JsonKey(ignore: true)
@@ -264,16 +306,18 @@ class _$_LiveMessageState implements _LiveMessageState {
 
 abstract class _LiveMessageState implements LiveMessageState {
   const factory _LiveMessageState(
-      {required Map<String, List<String>> messages,
+      {required Map<String, List<Message>> messages,
       required Map<String, bool> isFailedMap,
       required Option<File> recordingFile,
       required bool isRecording,
       required String currentChatId,
       required Option<String> speech,
+      required String botQuestion,
+      required String expectedText,
       required bool isSttInitialized}) = _$_LiveMessageState;
 
   @override
-  Map<String, List<String>> get messages;
+  Map<String, List<Message>> get messages;
   @override
   Map<String, bool> get isFailedMap;
   @override
@@ -284,6 +328,10 @@ abstract class _LiveMessageState implements LiveMessageState {
   String get currentChatId;
   @override
   Option<String> get speech;
+  @override
+  String get botQuestion;
+  @override
+  String get expectedText;
   @override
   bool get isSttInitialized;
   @override

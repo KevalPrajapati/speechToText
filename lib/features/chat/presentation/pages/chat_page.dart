@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+
 import 'dart:async';
 import 'dart:io';
 
@@ -5,8 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import '../cubit/livemessage_cubit.dart';
 
@@ -28,13 +28,10 @@ class _ChatPageState extends State<ChatPage> {
   bool isPlaying = false;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    cubit.initializeStt();
     cubit.emit(cubit.state.copyWith(currentChatId: widget.chatId));
-    // speech.initialize();
-    // _recorder.openRecorder();
-    // _player.openPlayer();
+    cubit.initChat();
+    cubit.fetchMessageHistory();
   }
 
   stt.SpeechToText speech = stt.SpeechToText();
@@ -45,6 +42,7 @@ class _ChatPageState extends State<ChatPage> {
       body: BlocBuilder<LiveMessageCubit, LiveMessageState>(
         bloc: cubit,
         builder: (context, state) {
+          print("chatId stuff: ${state.currentChatId}");
           return Column(
             children: [
               SizedBox(
@@ -78,25 +76,21 @@ class _ChatPageState extends State<ChatPage> {
               ),
               IconButton(
                 onPressed: () {
-                  playRecording(start: !isPlaying);
-                },
-                icon: Icon(Icons.play_arrow),
-              ),
-              IconButton(
-                onPressed: () {
                   cubit.stopStt();
                 },
-                icon: Icon(Icons.play_arrow),
+                icon: Icon(Icons.stop),
               ),
-              Text("${state.messages}"),
               if (state.messages[widget.chatId] != null)
                 Expanded(
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: state.messages[widget.chatId]!.length,
                     itemBuilder: (context, index) {
+                      final msg = state.messages[widget.chatId]![index];
                       return ListTile(
-                        title: Text(state.messages[widget.chatId]![index]),
+                        leading: msg.isBot ? CircleAvatar() : null,
+                        trailing: msg.isBot ? null : CircleAvatar(),
+                        title: Text(msg.message),
                       );
                     },
                   ),
@@ -110,56 +104,6 @@ class _ChatPageState extends State<ChatPage> {
 
   void toggleRecording({required bool isRecording}) async {
     cubit.toText();
-    // print(speech.lastRecognizedWords);
-    // speech.listen(onResult: (r) {
-    //   print(r.recognizedWords);
-    //   print(r.toJson());
-    // });
-    // cubit.stopStt();
-    return;
-
-    if (!isRecording) {
-      final micPermission = await Permission.microphone.request();
-      if (micPermission.isDenied || micPermission.isPermanentlyDenied) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-                "Mic permission has been denied. Enable it from your phone's settings page to begin recording."),
-          ),
-        );
-        return;
-      }
-    }
-    var tempDir = await getTemporaryDirectory();
-    path = '${tempDir.path}/recording.mp4';
-    cubit.toggleRecording();
-
-    if (isRecording) {
-      _recorder.stopRecorder();
-      file = File(path);
-      if (file != null) {
-        // cubit.onFileChanged(file!);
-      }
-    } else {
-      recordingTimer = Timer(Duration(minutes: 5), () async {
-        await _recorder.stopRecorder();
-        file = File(path);
-        cubit.toggleRecording();
-        // cubit.onFileChanged(file!);
-        print(
-            "============================file is ${file!.path}===================");
-      });
-
-      await _recorder.startRecorder(toFile: path);
-    }
-  }
-
-  void playRecording({required bool start}) {
-    if (_player.isStopped) {
-      _player.startPlayer(fromURI: path, whenFinished: () {});
-    } else {
-      _player.stopPlayer();
-    }
   }
 
   @override
