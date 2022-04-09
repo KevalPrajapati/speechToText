@@ -1,15 +1,10 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:http/http.dart' as http;
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 import '../../data/models/Message.dart';
-import '../../data/models/chat.dart';
 import '../../repo/chat_repository.dart';
 
 part 'livemessage_cubit.freezed.dart';
@@ -19,7 +14,7 @@ part 'livemessage_state.dart';
 class LiveMessageCubit extends Cubit<LiveMessageState> {
   LiveMessageCubit() : super(LiveMessageState.initial());
 
-  ChatRepository _repo = ChatRepository();
+  final _repo = ChatRepository();
 
   initChat(String chatId) async {
     _repo.saveLocaly(state.currentChatId);

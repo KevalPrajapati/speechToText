@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../chat/data/models/chat.dart';
-import '../data/models/Message.dart';
 import '../data/models/chat.dart';
 
 class ChatRepository {
@@ -23,7 +22,7 @@ class ChatRepository {
         .toList();
   }
 
-  saveLocaly(String chatId) async {
+  void saveLocaly(String chatId) async {
     try {
       final _prefs = await SharedPreferences.getInstance();
       final chats = _prefs.getStringList("chats") ?? [];

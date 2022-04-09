@@ -20,7 +20,6 @@ class DashboardCubit extends Cubit<DashboardState> {
 
   Future<void> addNewChat(String chatId) async {
     emit(DashboardState.loading());
-    final chats = await _repo.addNewChat(chatId);
     final stateChats = state.map<List<String>>(
         loading: (s) => [], failed: (f) => [], success: (s) => s.chats);
     emit(DashboardState.success(stateChats..add(chatId)));

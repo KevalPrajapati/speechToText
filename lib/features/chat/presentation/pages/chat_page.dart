@@ -5,7 +5,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 import '../cubit/livemessage_cubit.dart';
@@ -50,40 +49,39 @@ class _ChatPageState extends State<ChatPage> {
               SizedBox(
                 height: 20,
               ),
-              if (state.messages != null)
-                Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: state.messages.length,
-                    itemBuilder: (context, index) {
-                      final msg = state.messages[index];
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: msg.isBot
-                              ? MainAxisAlignment.start
-                              : MainAxisAlignment.end,
-                          children: [
-                            SizedBox(
-                              width: 10,
-                            ),
-                            if (msg.isBot) CircleAvatar(),
-                            Flexible(
-                              child: Text(
-                                msg.message,
-                                style: TextStyle(
-                                  color: msg.isBot ? Colors.blue : Colors.black,
-                                  fontSize: 20,
-                                ),
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: state.messages.length,
+                  itemBuilder: (context, index) {
+                    final msg = state.messages[index];
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: msg.isBot
+                            ? MainAxisAlignment.start
+                            : MainAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            width: 10,
+                          ),
+                          if (msg.isBot) CircleAvatar(),
+                          Flexible(
+                            child: Text(
+                              msg.message,
+                              style: TextStyle(
+                                color: msg.isBot ? Colors.blue : Colors.black,
+                                fontSize: 20,
                               ),
                             ),
-                            if (!msg.isBot) CircleAvatar(),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                          ),
+                          if (!msg.isBot) CircleAvatar(),
+                        ],
+                      ),
+                    );
+                  },
                 ),
+              ),
               SizedBox(
                 height: 20,
               ),

@@ -59,8 +59,7 @@ dev_dependencies:
   freezed: ^1.1.1
   injectable_generator: ^1.5.3
   effective_dart: ^1.3.2
-  build_runner: ^2.1.7
-  flutter_sound:
+  build_runner: ^2.1.7 
   dartz: ^0.10.1
   freezed_annotation:  
 

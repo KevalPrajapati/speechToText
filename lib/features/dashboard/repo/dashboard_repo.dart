@@ -7,7 +7,7 @@ class DashboardRepo {
     return _prefs.getStringList("chats") ?? [];
   }
 
-  addNewChat(String chatId) async {
+  void addNewChat(String chatId) async {
     final _prefs = await SharedPreferences.getInstance();
     final chats = _prefs.getStringList("chats") ?? [];
     if (!chats.contains(chatId)) {

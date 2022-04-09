@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'features/chat/presentation/pages/chat_page.dart';
 import 'features/dashboard/presentation/pages/dashboard_page.dart';
 
 void main() {
