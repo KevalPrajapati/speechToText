@@ -19,9 +19,8 @@ class _$LiveMessageStateTearOff {
   const _$LiveMessageStateTearOff();
 
   _LiveMessageState call(
-      {required Map<String, List<Message>> messages,
+      {required List<Message> messages,
       required Map<String, bool> isFailedMap,
-      required Option<File> recordingFile,
       required bool isRecording,
       required String currentChatId,
       required Option<String> speech,
@@ -31,7 +30,6 @@ class _$LiveMessageStateTearOff {
     return _LiveMessageState(
       messages: messages,
       isFailedMap: isFailedMap,
-      recordingFile: recordingFile,
       isRecording: isRecording,
       currentChatId: currentChatId,
       speech: speech,
@@ -47,9 +45,8 @@ const $LiveMessageState = _$LiveMessageStateTearOff();
 
 /// @nodoc
 mixin _$LiveMessageState {
-  Map<String, List<Message>> get messages => throw _privateConstructorUsedError;
+  List<Message> get messages => throw _privateConstructorUsedError;
   Map<String, bool> get isFailedMap => throw _privateConstructorUsedError;
-  Option<File> get recordingFile => throw _privateConstructorUsedError;
   bool get isRecording => throw _privateConstructorUsedError;
   String get currentChatId => throw _privateConstructorUsedError;
   Option<String> get speech => throw _privateConstructorUsedError;
@@ -68,9 +65,8 @@ abstract class $LiveMessageStateCopyWith<$Res> {
           LiveMessageState value, $Res Function(LiveMessageState) then) =
       _$LiveMessageStateCopyWithImpl<$Res>;
   $Res call(
-      {Map<String, List<Message>> messages,
+      {List<Message> messages,
       Map<String, bool> isFailedMap,
-      Option<File> recordingFile,
       bool isRecording,
       String currentChatId,
       Option<String> speech,
@@ -92,7 +88,6 @@ class _$LiveMessageStateCopyWithImpl<$Res>
   $Res call({
     Object? messages = freezed,
     Object? isFailedMap = freezed,
-    Object? recordingFile = freezed,
     Object? isRecording = freezed,
     Object? currentChatId = freezed,
     Object? speech = freezed,
@@ -104,15 +99,11 @@ class _$LiveMessageStateCopyWithImpl<$Res>
       messages: messages == freezed
           ? _value.messages
           : messages // ignore: cast_nullable_to_non_nullable
-              as Map<String, List<Message>>,
+              as List<Message>,
       isFailedMap: isFailedMap == freezed
           ? _value.isFailedMap
           : isFailedMap // ignore: cast_nullable_to_non_nullable
               as Map<String, bool>,
-      recordingFile: recordingFile == freezed
-          ? _value.recordingFile
-          : recordingFile // ignore: cast_nullable_to_non_nullable
-              as Option<File>,
       isRecording: isRecording == freezed
           ? _value.isRecording
           : isRecording // ignore: cast_nullable_to_non_nullable
@@ -149,9 +140,8 @@ abstract class _$LiveMessageStateCopyWith<$Res>
       __$LiveMessageStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {Map<String, List<Message>> messages,
+      {List<Message> messages,
       Map<String, bool> isFailedMap,
-      Option<File> recordingFile,
       bool isRecording,
       String currentChatId,
       Option<String> speech,
@@ -175,7 +165,6 @@ class __$LiveMessageStateCopyWithImpl<$Res>
   $Res call({
     Object? messages = freezed,
     Object? isFailedMap = freezed,
-    Object? recordingFile = freezed,
     Object? isRecording = freezed,
     Object? currentChatId = freezed,
     Object? speech = freezed,
@@ -187,15 +176,11 @@ class __$LiveMessageStateCopyWithImpl<$Res>
       messages: messages == freezed
           ? _value.messages
           : messages // ignore: cast_nullable_to_non_nullable
-              as Map<String, List<Message>>,
+              as List<Message>,
       isFailedMap: isFailedMap == freezed
           ? _value.isFailedMap
           : isFailedMap // ignore: cast_nullable_to_non_nullable
               as Map<String, bool>,
-      recordingFile: recordingFile == freezed
-          ? _value.recordingFile
-          : recordingFile // ignore: cast_nullable_to_non_nullable
-              as Option<File>,
       isRecording: isRecording == freezed
           ? _value.isRecording
           : isRecording // ignore: cast_nullable_to_non_nullable
@@ -230,7 +215,6 @@ class _$_LiveMessageState implements _LiveMessageState {
   const _$_LiveMessageState(
       {required this.messages,
       required this.isFailedMap,
-      required this.recordingFile,
       required this.isRecording,
       required this.currentChatId,
       required this.speech,
@@ -239,11 +223,9 @@ class _$_LiveMessageState implements _LiveMessageState {
       required this.isSttInitialized});
 
   @override
-  final Map<String, List<Message>> messages;
+  final List<Message> messages;
   @override
   final Map<String, bool> isFailedMap;
-  @override
-  final Option<File> recordingFile;
   @override
   final bool isRecording;
   @override
@@ -259,7 +241,7 @@ class _$_LiveMessageState implements _LiveMessageState {
 
   @override
   String toString() {
-    return 'LiveMessageState(messages: $messages, isFailedMap: $isFailedMap, recordingFile: $recordingFile, isRecording: $isRecording, currentChatId: $currentChatId, speech: $speech, botQuestion: $botQuestion, expectedText: $expectedText, isSttInitialized: $isSttInitialized)';
+    return 'LiveMessageState(messages: $messages, isFailedMap: $isFailedMap, isRecording: $isRecording, currentChatId: $currentChatId, speech: $speech, botQuestion: $botQuestion, expectedText: $expectedText, isSttInitialized: $isSttInitialized)';
   }
 
   @override
@@ -270,8 +252,6 @@ class _$_LiveMessageState implements _LiveMessageState {
             const DeepCollectionEquality().equals(other.messages, messages) &&
             const DeepCollectionEquality()
                 .equals(other.isFailedMap, isFailedMap) &&
-            const DeepCollectionEquality()
-                .equals(other.recordingFile, recordingFile) &&
             const DeepCollectionEquality()
                 .equals(other.isRecording, isRecording) &&
             const DeepCollectionEquality()
@@ -290,7 +270,6 @@ class _$_LiveMessageState implements _LiveMessageState {
       runtimeType,
       const DeepCollectionEquality().hash(messages),
       const DeepCollectionEquality().hash(isFailedMap),
-      const DeepCollectionEquality().hash(recordingFile),
       const DeepCollectionEquality().hash(isRecording),
       const DeepCollectionEquality().hash(currentChatId),
       const DeepCollectionEquality().hash(speech),
@@ -306,9 +285,8 @@ class _$_LiveMessageState implements _LiveMessageState {
 
 abstract class _LiveMessageState implements LiveMessageState {
   const factory _LiveMessageState(
-      {required Map<String, List<Message>> messages,
+      {required List<Message> messages,
       required Map<String, bool> isFailedMap,
-      required Option<File> recordingFile,
       required bool isRecording,
       required String currentChatId,
       required Option<String> speech,
@@ -317,11 +295,9 @@ abstract class _LiveMessageState implements LiveMessageState {
       required bool isSttInitialized}) = _$_LiveMessageState;
 
   @override
-  Map<String, List<Message>> get messages;
+  List<Message> get messages;
   @override
   Map<String, bool> get isFailedMap;
-  @override
-  Option<File> get recordingFile;
   @override
   bool get isRecording;
   @override

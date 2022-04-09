@@ -3,9 +3,8 @@ part of 'livemessage_cubit.dart';
 @freezed
 class LiveMessageState with _$LiveMessageState {
   const factory LiveMessageState({
-    required Map<String, List<Message>> messages,
+    required List<Message> messages,
     required Map<String, bool> isFailedMap,
-    required Option<File> recordingFile,
     required bool isRecording,
     required String currentChatId,
     required Option<String> speech,
@@ -15,7 +14,7 @@ class LiveMessageState with _$LiveMessageState {
   }) = _LiveMessageState;
 
   factory LiveMessageState.initial() => LiveMessageState(
-        messages: {},
+        messages: [],
         isFailedMap: {},
         isRecording: false,
         isSttInitialized: false,
@@ -23,6 +22,5 @@ class LiveMessageState with _$LiveMessageState {
         botQuestion: "",
         currentChatId: '',
         speech: none(),
-        recordingFile: none(),
       );
 }

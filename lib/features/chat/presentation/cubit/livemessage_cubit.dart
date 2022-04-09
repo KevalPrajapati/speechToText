@@ -21,15 +21,19 @@ class LiveMessageCubit extends Cubit<LiveMessageState> {
 
   ChatRepository _repo = ChatRepository();
 
-  fetchMessageHistory() {
-    // _repo.getFromLocal(state.currentChatId).then((value) {
-    //   emit(state.copyWith(messages: value));
-    // });
+  initChat(String chatId) async {
+    _repo.saveLocaly(state.currentChatId);
+    emit(state.copyWith(
+      currentChatId: chatId,
+      messages: [],
+      isFailedMap: {},
+      isRecording: false,
+      isSttInitialized: false,
+      expectedText: "",
+      botQuestion: "",
+      speech: none(),
+    ));
     fetchQuestion();
-  }
-
-  initChat() async {
-    emit(LiveMessageState.initial());
     await initializeStt();
   }
 
@@ -55,11 +59,9 @@ class LiveMessageCubit extends Cubit<LiveMessageState> {
     final nextChat = chats[nextIndex];
     print(nextChat.toJson());
     var messages = state.messages;
-    var messagesList = messages[state.currentChatId] ?? [];
-    messages.addAll({
-      '${state.currentChatId}': messagesList
-        ..add(Message(isBot: true, message: nextChat.bot!)),
-    });
+    messages.add(
+      Message(isBot: true, message: nextChat.bot!),
+    );
     emit(
       state.copyWith(
         messages: messages,
@@ -75,14 +77,10 @@ class LiveMessageCubit extends Cubit<LiveMessageState> {
     speech.stop();
     emit(state.copyWith(speech: some(speech.lastRecognizedWords)));
     var messages = state.messages;
-    var messagesList = messages[state.currentChatId] ?? [];
     print("${speech.lastRecognizedWords}");
     if (speech.lastRecognizedWords.isNotEmpty) {
       print("adding to list");
-      messages.addAll({
-        '${state.currentChatId}': messagesList
-          ..add(Message(isBot: false, message: speech.lastRecognizedWords)),
-      });
+      messages.add(Message(isBot: false, message: speech.lastRecognizedWords));
     }
     emit(state.copyWith(messages: messages));
     onUserResponseComplete();
@@ -106,7 +104,7 @@ class LiveMessageCubit extends Cubit<LiveMessageState> {
   }
 
   stt.SpeechToText speech = stt.SpeechToText();
-  toText() async {
+  void startSpeechRecog() async {
     print("trying t get speech ab bol");
 
     if (state.isSttInitialized) {
