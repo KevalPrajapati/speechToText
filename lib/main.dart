@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'features/chat_page.dart/presentation/pages/chat_page.dart';
+import 'features/dashboard/presentation/pages/dashboard_page.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -14,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Text('To new beginning'),
+      home: ChatPage(chatId: "sds"),
     );
   }
 }
