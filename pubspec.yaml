@@ -36,15 +36,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   bloc: ^8.0.3
   flutter_bloc: 
-  permission_handler: ^9.2.0
   path_provider: ^2.0.9
-  flutter_sound: ^9.1.7
-  dio: ^4.0.6
   http: ^0.13.4
   shared_preferences: ^2.0.13
   fluttertoast: ^8.0.9
   speech_to_text: ^5.4.3
-  get_it: ^7.2.0
 
 dev_dependencies:
   flutter_test:
