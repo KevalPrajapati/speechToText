@@ -30,8 +30,6 @@ class _ChatPageState extends State<ChatPage> {
     cubit.initChat(widget.chatId);
   }
 
-  stt.SpeechToText speech = stt.SpeechToText();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

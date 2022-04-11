@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
@@ -10,7 +12,6 @@ import '../../repo/chat_repository.dart';
 part 'livemessage_cubit.freezed.dart';
 part 'livemessage_state.dart';
 
-@injectable
 class LiveMessageCubit extends Cubit<LiveMessageState> {
   LiveMessageCubit() : super(LiveMessageState.initial());
 
@@ -63,7 +64,8 @@ class LiveMessageCubit extends Cubit<LiveMessageState> {
     print(speech.lastRecognizedWords);
     print(speech.lastStatus);
     speech.stop();
-    emit(state.copyWith(speech: some(speech.lastRecognizedWords)));
+    emit(state.copyWith(
+        speech: some(speech.lastRecognizedWords), isRecording: false));
     var messages = state.messages;
     print("${speech.lastRecognizedWords}");
     if (speech.lastRecognizedWords.isNotEmpty) {
@@ -75,29 +77,31 @@ class LiveMessageCubit extends Cubit<LiveMessageState> {
   }
 
   Future<void> initializeStt() async {
+    speech.cancel();
     var _speechEnabled = await speech.initialize(
       finalTimeout: Duration(seconds: 10),
-      onStatus: (s) {
-        print("stt status changed $s");
-        if (s == "listening") {
-          emit(state.copyWith(isRecording: true));
-        } else if (s == "done") {
-          stopStt();
-        } else {}
-        emit(state.copyWith(isRecording: true));
-      },
     );
     emit(state.copyWith(isSttInitialized: _speechEnabled));
   }
 
   void startSpeechRecog() async {
     if (state.isSttInitialized) {
+      emit(state.copyWith(isRecording: true));
       speech.listen(
         onResult: (r) {
           emit(state.copyWith(speech: some(r.recognizedWords)));
         },
       );
     } else {
+      Fluttertoast.showToast(
+        msg: "Speech to text not supported on this device or it is denied",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
       print("The user has denied the use of speech recognition.");
     }
   }
