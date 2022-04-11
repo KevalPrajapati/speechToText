@@ -15,19 +15,12 @@ class LiveMessageCubit extends Cubit<LiveMessageState> {
   LiveMessageCubit() : super(LiveMessageState.initial());
 
   final _repo = ChatRepository();
+  stt.SpeechToText speech = stt.SpeechToText();
 
   initChat(String chatId) async {
     _repo.saveLocaly(state.currentChatId);
-    emit(state.copyWith(
-      currentChatId: chatId,
-      messages: [],
-      isFailedMap: {},
-      isRecording: false,
-      isSttInitialized: false,
-      expectedText: "",
-      botQuestion: "",
-      speech: none(),
-    ));
+    emit(LiveMessageState.initial());
+    emit(state.copyWith(currentChatId: chatId));
     fetchQuestion();
     await initializeStt();
   }
@@ -83,30 +76,24 @@ class LiveMessageCubit extends Cubit<LiveMessageState> {
 
   Future<void> initializeStt() async {
     var _speechEnabled = await speech.initialize(
-      finalTimeout: Duration(minutes: 5),
+      finalTimeout: Duration(seconds: 10),
       onStatus: (s) {
         print("stt status changed $s");
         if (s == "listening") {
           emit(state.copyWith(isRecording: true));
         } else if (s == "done") {
           stopStt();
-        } else {
-          emit(state.copyWith(isRecording: false));
-        }
+        } else {}
+        emit(state.copyWith(isRecording: true));
       },
     );
     emit(state.copyWith(isSttInitialized: _speechEnabled));
   }
 
-  stt.SpeechToText speech = stt.SpeechToText();
   void startSpeechRecog() async {
-    print("trying t get speech ab bol");
-
     if (state.isSttInitialized) {
       speech.listen(
         onResult: (r) {
-          print(r.recognizedWords);
-          print(r.toJson());
           emit(state.copyWith(speech: some(r.recognizedWords)));
         },
       );

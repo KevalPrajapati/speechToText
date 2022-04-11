@@ -88,15 +88,18 @@ class _ChatPageState extends State<ChatPage> {
               Text("${state.speech.fold(() => null, (a) => a)}"),
               RawMaterialButton(
                 splashColor: Colors.transparent,
-                onPressed: () {
-                  toggleRecording(isRecording: state.isRecording);
-                },
+                onPressed: state.isSttInitialized
+                    ? () {
+                        toggleRecording(isRecording: state.isRecording);
+                      }
+                    : null,
+
                 elevation: 2.0,
                 fillColor: Colors.grey,
                 child: Icon(
-                  state.isRecording ? Icons.stop : Icons.mic,
+                  cubit.state.isRecording ? Icons.stop : Icons.mic,
                   size: 25.0,
-                  color: Colors.red,
+                  color: Color.fromARGB(255, 211, 32, 9),
                 ),
                 // padding: EdgeInsets.all(5),
                 shape: CircleBorder(),
